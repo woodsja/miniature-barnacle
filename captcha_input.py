@@ -15,7 +15,7 @@ image = tf.image.decode_png(image_file)
 
 # start a session with example output
 with tf.Session() as sess:
-    tf.global_variables_initializer()
+    tf.initialize_all_variables().run()
 
     image_tensor = sess.run([image])
     print(image_tensor)
