@@ -1,21 +1,24 @@
 import tensorflow as tf
 
+directory = "*.*"
+file_names = tf.train.match_filenames_once("1.png")
+
 # queue up file names
-filename_queue = tf.train.string_input_producer(
-    tf.train.match_filenames_once("./training/*.png"))
+filename_queue = tf.train.string_input_producer(file_names)
 
 # read an image
-image_reader = tf.WholeFileReader()
+reader = tf.WholeFileReader()
 
 # read a file from the queue, ignoring the first value in the tuple
-_, image_file = image_reader.read(filename_queue)
+key, value = reader.read(filename_queue)
 
 # decode image from PNG to a tensor
-image = tf.image.decode_png(image_file)
+image = tf.image.decode_png(value)
+
+init_op = tf.global_variables_initializer()
 
 # start a session with example output
 with tf.Session() as sess:
-    tf.global_variables_initializer()
 
     # coordinate loading of image files
     coord = tf.train.Coordinator()
