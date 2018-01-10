@@ -1,6 +1,5 @@
 import tensorflow as tf
 
-directory = "*.*"
 file_names = tf.train.match_filenames_once("1.png")
 
 # queue up file names
@@ -31,5 +30,3 @@ with tf.Session() as sess:
     # finish off filename queue coordinator
     coord.request_stop()
     coord.join(threads)
-
-
