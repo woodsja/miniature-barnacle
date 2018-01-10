@@ -17,9 +17,15 @@ image = tf.image.decode_png(image_file)
 with tf.Session() as sess:
     tf.global_variables_initializer()
 
+    # coordinate loading of image files
+    coord = tf.train.Coordinator()
+    threads = tf.train.start_queue_runners(coord=coord)
+
+    # get an image tensor
     image_tensor = sess.run([image])
     print(image_tensor)
 
+    # finish off filename queue coordinator
     coord.request_stop()
     coord.join(threads)
 
